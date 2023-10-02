@@ -12,3 +12,25 @@ it should return a response that has this format (depending on the coin)
 }
 
 */
+
+const axios = require("axios");
+
+async function getFormattedCoinData(coin) {
+  const BASE_URL = "https://api.coingecko.com/api/v3/coins";
+
+  try {
+    const { data } = await axios.get(`${BASE_URL}/${coin}`);
+    console.log({
+      coinName: data.id,
+      genesis_date: data.genesis_date,
+      usd_price: data.market_data.current_price.usd,
+      ath_usd: data.market_data.ath.usd,
+      price_change_percentage_24th:
+        data.market_data.price_change_percentage_24h,
+    });
+  } catch ({ message }) {
+    console.log(message);
+  }
+}
+
+getFormattedCoinData("bitcoin");

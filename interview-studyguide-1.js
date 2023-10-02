@@ -82,3 +82,23 @@ getCoinMarketData('bitcoin') /* ->
 }, ...other keys related to market data
 
 */
+
+const axios = require("axios");
+//The API endpoint will be similar to this endpoint to get bitcoin information: https://api.coingecko.com/api/v3/coins/bitcoin
+
+// Make sure to make the API call update based on the coin name that is passed into getCoinMarketData.
+
+// The function should return the market_data object from the result of the API call.
+
+async function getCoinData(coin) {
+  const BASE_URL = "https://api.coingecko.com/api/v3/coins";
+  try {
+    const { data } = await axios.get(`${BASE_URL}/${coin}`);
+    console.log(data.market_data);
+    return data.market_data;
+  } catch ({ message }) {
+    return message;
+  }
+}
+
+getCoinData("bitcoin");
