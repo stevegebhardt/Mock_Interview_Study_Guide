@@ -15,9 +15,21 @@ charmander
 bulbasaur
 */
 
+const axios = require("axios");
 
-function catchEmAll(pokemonName) {
-  
+async function catchEmAll(pokemonName) {
+  const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
+  try {
+    const { data } = await axios.get(`${BASE_URL}/${pokemonName}`);
+    console.log({
+      name: pokemonName,
+      abilities: data.abilities,
+      height: data.height,
+      base_experience: data.base_experience,
+    });
+  } catch ({ message }) {
+    console.log(message);
+  }
 }
 
-catchEmAll("pikachu")
+catchEmAll("pikachu");
